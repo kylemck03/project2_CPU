@@ -22,59 +22,26 @@ namespace CPU_Scheduler
             Console.WriteLine("=======================");
             Console.WriteLine();
 
-            // Create a new scheduler
-            var scheduler = new Scheduler(processes);
+            RunScheduler("First Come First Served (FCFS)", processes, scheduler => scheduler.FCFS());
+            RunScheduler("Shortest Job First (SJF)", processes, scheduler => scheduler.SJF());
+            RunScheduler("Round Robin (Quantum = 2)", processes, scheduler => scheduler.RoundRobin(2));
+            RunScheduler("Priority Scheduling", processes, scheduler => scheduler.Priority());
+            RunScheduler("Shortest Remaining Time First (SRTF)", processes, scheduler => scheduler.SRTF());
+            RunScheduler("Multi-Level Feedback Queue (MLFQ)", processes, scheduler => scheduler.MLFQ(new int[] { 2, 4, 8 }));
+        }
 
-            // Run FCFS
-            Console.WriteLine("First Come First Served (FCFS):");
-            scheduler.FCFS();
+        static void RunScheduler(string title, List<Process> originalProcesses, Action<Scheduler> schedule)
+        {
+            // Deep copy of the original processes
+            var processesCopy = originalProcesses.Select(p => new Process(p.ProcessId, p.ArrivalTime, p.BurstTime, p.Priority)).ToList();
+            
+            // Create a new scheduler instance with fresh processes
+            var scheduler = new Scheduler(processesCopy);
+
+            Console.WriteLine(title + ":");
+            schedule(scheduler);
             DisplayResults(scheduler);
             Console.WriteLine();
-
-            // Reset processes
-            ResetProcesses(processes);
-
-            // Run SJF
-            Console.WriteLine("Shortest Job First (SJF):");
-            scheduler.SJF();
-            DisplayResults(scheduler);
-            Console.WriteLine();
-
-            // Reset processes
-            ResetProcesses(processes);
-
-            // Run Round Robin
-            Console.WriteLine("Round Robin (Quantum = 2):");
-            scheduler.RoundRobin(2);
-            DisplayResults(scheduler);
-            Console.WriteLine();
-
-            // Reset processes
-            ResetProcesses(processes);
-
-            // Run Priority
-            Console.WriteLine("Priority Scheduling:");
-            scheduler.Priority();
-            DisplayResults(scheduler);
-            Console.WriteLine();
-
-            // Reset processes
-            ResetProcesses(processes);
-
-            // Run SRTF
-            Console.WriteLine("Shortest Remaining Time First (SRTF):");
-            scheduler.SRTF();
-            DisplayResults(scheduler);
-            Console.WriteLine();
-
-            // Reset processes
-            ResetProcesses(processes);
-
-            // Run MLFQ
-            Console.WriteLine("Multi-Level Feedback Queue (MLFQ):");
-            int[] quantumLevels = { 2, 4, 8 }; // Quantum levels for each queue
-            scheduler.MLFQ(quantumLevels);
-            DisplayResults(scheduler);
         }
 
         static void DisplayResults(Scheduler scheduler)
@@ -87,18 +54,6 @@ namespace CPU_Scheduler
             Console.WriteLine($"Average Turnaround Time: {avgTurnaroundTime:F2}");
             Console.WriteLine($"CPU Utilization: {cpuUtilization:F2}%");
             Console.WriteLine($"Throughput: {throughput:F2} processes per time unit");
-        }
-
-        static void ResetProcesses(List<Process> processes)
-        {
-            foreach (var process in processes)
-            {
-                process.RemainingTime = process.BurstTime;
-                process.WaitingTime = 0;
-                process.TurnaroundTime = 0;
-                process.ResponseTime = -1;
-                process.HasStarted = false;
-            }
         }
     }
 } 

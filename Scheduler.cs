@@ -204,22 +204,25 @@ namespace CPU_Scheduler
                 queues.Add(new Queue<Process>());
             }
 
-            var allProcesses = new List<Process>(processes);
+            // Initialize by adding all processes to the highest priority queue
+            queues[0] = new Queue<Process>(processes.OrderBy(p => p.ArrivalTime));
+            
             currentTime = 0;
             completedProcesses = 0;
 
             while (completedProcesses < totalProcesses)
             {
                 bool processExecuted = false;
+
+                // Check for processes in each queue, starting from highest priority
                 for (int i = 0; i < queues.Count; i++)
                 {
-                    var queue = queues[i];
-                    if (queue.Count > 0)
+                    while (queues[i].Count > 0)
                     {
-                        var currentProcess = queue.Peek();
+                        var currentProcess = queues[i].Peek();
                         if (currentProcess.ArrivalTime <= currentTime)
                         {
-                            currentProcess = queue.Dequeue();
+                            currentProcess = queues[i].Dequeue();
                             currentProcess.UpdateResponseTime(currentTime);
                             currentProcess.UpdateWaitingTime(currentTime);
 
@@ -229,12 +232,14 @@ namespace CPU_Scheduler
 
                             if (currentProcess.RemainingTime > 0)
                             {
+                                // Move to lower priority queue if not the lowest
                                 if (i < queues.Count - 1)
                                 {
                                     queues[i + 1].Enqueue(currentProcess);
                                 }
                                 else
                                 {
+                                    // If at lowest priority, stay in same queue
                                     queues[i].Enqueue(currentProcess);
                                 }
                             }
@@ -246,24 +251,18 @@ namespace CPU_Scheduler
                             processExecuted = true;
                             break;
                         }
+                        else
+                        {
+                            break; // Wait for this process's arrival time
+                        }
                     }
+                    if (processExecuted) break;
                 }
 
                 if (!processExecuted)
                 {
-                    // Add new processes to the highest priority queue
-                    var newProcesses = allProcesses.Where(p => p.ArrivalTime == currentTime).ToList();
-                    foreach (var process in newProcesses)
-                    {
-                        queues[0].Enqueue(process);
-                        allProcesses.Remove(process);
-                    }
-
-                    if (queues.All(q => q.Count == 0))
-                    {
-                        currentTime++;
-                        idleTime++;
-                    }
+                    currentTime++;
+                    idleTime++;
                 }
             }
         }
