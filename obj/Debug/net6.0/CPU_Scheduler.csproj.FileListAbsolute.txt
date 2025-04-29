@@ -1,0 +1,15 @@
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\bin\Debug\net6.0\CPU_Scheduler.exe
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\bin\Debug\net6.0\CPU_Scheduler.deps.json
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\bin\Debug\net6.0\CPU_Scheduler.runtimeconfig.json
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\bin\Debug\net6.0\CPU_Scheduler.dll
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\bin\Debug\net6.0\CPU_Scheduler.pdb
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.AssemblyInfoInputs.cache
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.AssemblyInfo.cs
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.csproj.CoreCompileInputs.cache
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.sourcelink.json
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.dll
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\refint\CPU_Scheduler.dll
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.pdb
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\CPU_Scheduler.genruntimeconfig.cache
+C:\Users\Kyle\Downloads\cpu2\project2_CPU\obj\Debug\net6.0\ref\CPU_Scheduler.dll
